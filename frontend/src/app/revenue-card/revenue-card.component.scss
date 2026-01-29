@@ -1,0 +1,83 @@
+.revenue-card {
+  position: relative;
+  background-color: var(--card-blue);
+  border-radius: 12px;
+  padding: 1.5rem;
+  overflow: hidden;
+  min-height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-background-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 4rem;
+  font-weight: 700;
+  opacity: 0.2;
+  color: var(--text-dark);
+  line-height: 1;
+}
+
+.card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.card-label {
+  font-size: 0.875rem;
+  color: var(--text-gray);
+  margin-bottom: 0.5rem;
+}
+
+.card-period {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.75rem;
+}
+
+.card-amount {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-blue);
+}
+
+// Color variants
+.card-yellow {
+  background-color: var(--card-yellow);
+  
+  .card-background-icon {
+    color: var(--text-yellow);
+  }
+}
+
+.card-pink {
+  background-color: var(--card-pink);
+  
+  .card-background-icon {
+    color: var(--text-pink);
+  }
+}
+
+.card-purple {
+  background-color: var(--card-purple);
+  
+  .card-background-icon {
+    color: var(--text-purple);
+  }
+}
+
+.amount-yellow {
+  color: var(--text-yellow);
+}
+
+.amount-pink {
+  color: var(--text-pink);
+}
+
+.amount-purple {
+  color: var(--text-purple);
+}

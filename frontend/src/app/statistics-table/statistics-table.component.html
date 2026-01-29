@@ -1,0 +1,38 @@
+<div class="statistics-container">
+  <div class="statistics-header">
+    <h2 class="statistics-title">Statistics by Site</h2>
+    <div class="date-filters">
+      <input 
+        type="date" 
+        class="date-input" 
+        placeholder="Start Date"
+        [(ngModel)]="startDate">
+      <input 
+        type="date" 
+        class="date-input" 
+        placeholder="End Date"
+        [(ngModel)]="endDate">
+    </div>
+  </div>
+
+  <div class="table-container">
+    <table class="statistics-table">
+      <thead>
+        <tr>
+          <th>Website / App</th>
+          <th>Revenue</th>
+          <th>eCPM</th>
+          <th>Impressions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let stat of statistics">
+          <td>{{ stat.website }}</td>
+          <td>{{ stat.revenue }}</td>
+          <td>{{ stat.ecpm }}</td>
+          <td>{{ stat.impressions }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

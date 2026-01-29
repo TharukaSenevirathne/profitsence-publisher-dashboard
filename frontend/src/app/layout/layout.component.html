@@ -1,0 +1,38 @@
+<div class="layout-container">
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <h1 class="logo">ProfitSence<span class="logo-dot">.</span></h1>
+    </div>
+    <div class="header-right">
+      <div class="user-profile">
+        <div class="avatar">AS</div>
+        <span class="user-name">Hi! Angeora Solutions</span>
+        <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M2 4L6 8L10 4" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="main-wrapper">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <nav class="nav-menu">
+        <a 
+          *ngFor="let item of menuItems" 
+          [routerLink]="item.route" 
+          routerLinkActive="active"
+          class="nav-item">
+          <span class="nav-icon" [innerHTML]="getIconSvg(item.icon)"></span>
+          <span class="nav-label">{{ item.label }}</span>
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
