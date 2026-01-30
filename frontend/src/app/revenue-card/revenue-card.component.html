@@ -1,0 +1,8 @@
+<div class="revenue-card" [ngClass]="'card-' + color">
+  <div class="card-background-icon">$</div>
+  <div class="card-content">
+    <div class="card-label">Estimated Revenue</div>
+    <div class="card-period">{{ period }}</div>
+    <div class="card-amount" [ngClass]="'amount-' + color">{{ amount }}</div>
+  </div>
+</div>

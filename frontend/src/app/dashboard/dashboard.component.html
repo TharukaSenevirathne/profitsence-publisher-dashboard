@@ -1,0 +1,19 @@
+<div class="dashboard-container">
+  <!-- Revenue Cards -->
+  <div class="revenue-cards">
+    <app-revenue-card
+      *ngFor="let card of revenueCards"
+      [period]="card.period"
+      [amount]="card.amount"
+      [color]="card.color">
+    </app-revenue-card>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="charts-section">
+    <div class="charts-placeholder">Charts</div>
+  </div>
+
+  <!-- Statistics Table -->
+  <app-statistics-table></app-statistics-table>
+</div>
