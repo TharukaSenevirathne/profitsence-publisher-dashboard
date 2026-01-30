@@ -1,0 +1,137 @@
+<div class="payments-page">
+  <div class="page-inner">
+    <div class="revenue-cards">
+    <app-revenue-card period="Available Balance" [amount]="'$' + availableBalance.toFixed(2)" color="blue"></app-revenue-card>
+    <app-revenue-card period="Total Finalized Earnings" amount="$1,250.54" color="yellow"></app-revenue-card>
+    <app-revenue-card period="Last Month Payout" amount="$120.54" color="pink"></app-revenue-card>
+    <app-revenue-card period="Total Payouts" amount="$1,150.54" color="purple"></app-revenue-card>
+  </div>
+
+    <section class="tabs">
+    <button (click)="activeTab='finalized'" [class.active]="activeTab==='finalized'">Finalized Revenue</button>
+    <button (click)="activeTab='mypayouts'" [class.active]="activeTab==='mypayouts'">My Payouts</button>
+    <button (click)="activeTab='method'" [class.active]="activeTab==='method'">Payment Method</button>
+  </section>
+
+
+    <section *ngIf="activeTab==='finalized'" class="finalized">
+      <div class="actions">
+      </div>
+
+      <table class="finalized-table">
+        <thead>
+          <tr>
+            <th>Time Period</th>
+            <th>Total Revenue</th>
+            <th>Deductions</th>
+            <th>Commission</th>
+            <th>Final Amount</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>June 2023</td>
+            <td>$150.55</td>
+            <td>$10.55</td>
+            <td>$15.00</td>
+            <td>$135.00</td>
+            <td class="status pending">Pending</td>
+            <td><button class="receipt" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 8H5a2 2 0 0 0-2 2v6h4v4h10v-4h4v-6a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="3" width="10" height="5" rx="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Download Receipt</button></td>
+          </tr>
+          <tr>
+            <td>May 2023</td>
+            <td>$160.65</td>
+            <td>$10.65</td>
+            <td>$15.00</td>
+            <td>$145.00</td>
+            <td class="status finalized">Finalized</td>
+            <td><button class="receipt" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 8H5a2 2 0 0 0-2 2v6h4v4h10v-4h4v-6a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="3" width="10" height="5" rx="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Download Receipt</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section *ngIf="activeTab==='mypayouts'" class="mypayouts">
+    <div class="actions">
+      <button class="request" (click)="openRequestModal()">Request New Payout</button>
+    </div>
+
+    <table class="payouts-table">
+      <thead>
+        <tr>
+          <th>Request Date</th>
+          <th>Amount</th>
+          <th>Payout Date</th>
+          <th>Status</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of payouts">
+          <td>{{ p.requestDate }}</td>
+          <td>{{ p.amount }}</td>
+          <td>{{ p.payoutDate }}</td>
+          <td [class.paid]="p.status==='Paid'">{{ p.status }}</td>
+          <td><button class="receipt">Download Receipt</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p class="note">Note: Your minimum available balance to be at least $100 to request a Payout. For payment-related questions please send an email to payments&#64;profitsence.com</p>
+  </section>
+
+  <section *ngIf="activeTab==='method'" class="method">
+    <h3>Update My Payment Method</h3>
+    <div class="form-grid">
+      <select [(ngModel)]="paymentMethod.method">
+        <option value="">Payment Method</option>
+        <option value="bank">Bank Transfer</option>
+        <option value="paypal">PayPal</option>
+      </select>
+      <select [(ngModel)]="paymentMethod.currency">
+        <option value="">Select Payout Currency</option>
+        <option value="usd">USD</option>
+        <option value="eur">EUR</option>
+      </select>
+
+      <select [(ngModel)]="paymentMethod.accountType">
+        <option value="">Select Account Type</option>
+        <option value="checking">Checking</option>
+        <option value="savings">Savings</option>
+      </select>
+
+      <input placeholder="Account Name" [(ngModel)]="paymentMethod.accountName" />
+      <input placeholder="Account Number" [(ngModel)]="paymentMethod.accountNumber" />
+      <input placeholder="Bank Name" [(ngModel)]="paymentMethod.bankName" />
+      <input placeholder="Bank Address" [(ngModel)]="paymentMethod.bankAddress" />
+      <input placeholder="Bank City" [(ngModel)]="paymentMethod.bankCity" />
+      <input placeholder="Bank State" [(ngModel)]="paymentMethod.bankState" />
+      <input placeholder="Bank Province" [(ngModel)]="paymentMethod.bankProvince" />
+      <input placeholder="Bank Country" [(ngModel)]="paymentMethod.bankCountry" />
+      <input placeholder="Bank Zip Code" [(ngModel)]="paymentMethod.bankZip" />
+      <input placeholder="Bank Swift / Routing" [(ngModel)]="paymentMethod.bankSwift" />
+      <input placeholder="Your Address" [(ngModel)]="paymentMethod.address" />
+      <input placeholder="Your City" [(ngModel)]="paymentMethod.city" />
+      <input placeholder="Your State" [(ngModel)]="paymentMethod.state" />
+      <input placeholder="Your Province" [(ngModel)]="paymentMethod.province" />
+      <input placeholder="Your Country" [(ngModel)]="paymentMethod.country" />
+      <input placeholder="Your Zip Code" [(ngModel)]="paymentMethod.zip" />
+
+      <button class="save" (click)="savePaymentMethod()">Save Details</button>
+    </div>
+  </section>
+
+  <!-- Request popup-->
+    <div class="modal-backdrop" *ngIf="showRequestModal">
+    <div class="modal">
+      <button class="close" (click)="closeRequestModal()">✕</button>
+      <h4>Payout Request</h4>
+      <p>Available Balance for Payouts: ${{ availableBalance.toFixed(2) }}</p>
+      <input placeholder="Enter Desired Payout Amount" [(ngModel)]="requestedAmount" />
+      <button class="submit" (click)="submitRequest()">Submit</button>
+    </div>
+    </div>
+  </div>
+</div>
