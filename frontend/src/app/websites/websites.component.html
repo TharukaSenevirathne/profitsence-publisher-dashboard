@@ -1,0 +1,54 @@
+<div class="websites-container">
+  <div class="page-header">
+    <h1 class="page-title">Websites</h1>
+    <button type="button" class="btn-add-website" (click)="addNewWebsite()">
+      Add New Website
+    </button>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="websites-table">
+      <thead>
+        <tr>
+          <th class="col-domain">Domain</th>
+          <th class="col-category">Category</th>
+          <th class="col-status">Status</th>
+          <th class="col-options">Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let site of websites">
+          <td class="col-domain">{{ site.domain }}</td>
+          <td class="col-category">{{ site.category }}</td>
+          <td class="col-status">
+            <span class="status-badge status-{{ site.status }}">
+              {{ site.status === 'approved' ? 'Approved' : site.status === 'rejected' ? 'Rejected' : site.status === 'pending' ? 'Pending' : 'Verifying' }}
+            </span>
+          </td>
+          <td class="col-options">
+            <ng-container *ngIf="site.status === 'approved'">
+              <button type="button" class="btn btn-ad-units" (click)="openAdUnits()">&lt;/&gt; Ad Units</button>
+            </ng-container>
+            <ng-container *ngIf="site.status === 'rejected'">
+              <button type="button" class="btn btn-rejection" (click)="showRejectionReasons()">Rejection Reasons</button>
+              <button type="button" class="btn btn-resubmit" (click)="resubmit()">Re-Submit</button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="minimum-requirements">
+    <h2 class="requirements-title">Minimum Requirements</h2>
+    <ol class="requirements-list">
+      <li>Minimum of 100,000 pageviews per month.</li>
+      <li>Content safe (no nudity/sexuality/adult content).</li>
+      <li>Add our ads.txt lines to your site's ads.txt file.</li>
+    </ol>
+    <p class="requirements-note">
+      Note: You need to add the ads.txt lines to your website (www.exampl.com/ads.txt) after we are verifying your website.<br>
+      If you need any help please contact your account mananger or send an email to info&#64;profitsence.com
+    </p>
+  </section>
+</div>
