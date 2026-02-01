@@ -1,0 +1,76 @@
+<div class="ad-units-page">
+  <div class="page-inner">
+    <div class="header">
+      <h1>Ad Units</h1>
+      <button class="btn-create" (click)="openCreateModal()">Create New</button>
+    </div>
+
+    <div class="filter-section">
+      <select class="select-dropdown" [(ngModel)]="selectedSite">
+        <option value="">Select Site / App</option>
+        <option *ngFor="let site of sites" [value]="site.name">{{ site.name }}</option>
+      </select>
+    </div>
+
+    <div class="table-section">
+      <table class="ad-units-table">
+        <thead>
+          <tr>
+            <th>Site / App</th>
+            <th>Ad Unit</th>
+            <th>Code</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let unit of adUnits">
+            <td>{{ unit.site }}</td>
+            <td>{{ unit.unit }}</td>
+            <td class="code-cell">
+              <code>{{ unit.code }}</code>
+              <button class="copy-btn" (click)="copyCode(unit.code)" title="Copy">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                  <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                </svg>
+              </button>
+            </td>
+            <td>
+              <span class="status" [class]="getStatusColor(unit.status)">{{ unit.status }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="note">
+      <p><strong>Note:</strong> You will get ad codes within 24 hours after creating. If you need any help please contact your account manager or send an email to <a href="mailto:info&#64;profitsence.com">info&#64;profitsence.com</a></p>
+    </div>
+  </div>
+
+  <div *ngIf="showCreateModal" class="modal-backdrop">
+    <div class="modal">
+      <div class="modal-header">
+        <h2>Create New</h2>
+        <button class="close-btn" (click)="closeCreateModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <select class="select-dropdown">
+          <option value="">Select Site / App</option>
+          <option *ngFor="let site of sites" [value]="site.name">{{ site.name }}</option>
+        </select>
+        <select class="select-dropdown">
+          <option value="">Select Options</option>
+          <option value="300x250">300X250</option>
+          <option value="728x90">728X90</option>
+          <option value="sticky">Sticky</option>
+          <option value="interstitial">Interstitial</option>
+          <option value="banner">Banner</option>
+        </select>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit" (click)="submitCreate()">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
