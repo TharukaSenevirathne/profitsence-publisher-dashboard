@@ -1,0 +1,68 @@
+<div class="reports-container">
+  <h1 class="reports-title">Reports</h1>
+
+  <div class="filters">
+    <select
+      class="filter-select"
+      [(ngModel)]="selectedSiteApp">
+      <option *ngFor="let opt of siteAppOptions" [value]="opt.value">{{ opt.label }}</option>
+    </select>
+    <div
+      class="filter-input filter-input-date-trigger"
+      (click)="openDatePicker(startDateInput)"
+      role="button"
+      tabindex="0"
+      (keydown.enter)="openDatePicker(startDateInput)"
+      (keydown.space)="openDatePicker(startDateInput); $event.preventDefault()">
+      Start Date
+      <input
+        #startDateInput
+        type="date"
+        class="filter-input-date-hidden"
+        [(ngModel)]="startDate"
+        tabindex="-1"
+        aria-hidden="true" />
+    </div>
+    <div
+      class="filter-input filter-input-date-trigger"
+      (click)="openDatePicker(endDateInput)"
+      role="button"
+      tabindex="0"
+      (keydown.enter)="openDatePicker(endDateInput)"
+      (keydown.space)="openDatePicker(endDateInput); $event.preventDefault()">
+      End Date
+      <input
+        #endDateInput
+        type="date"
+        class="filter-input-date-hidden"
+        [(ngModel)]="endDate"
+        tabindex="-1"
+        aria-hidden="true" />
+    </div>
+  </div>
+
+  <div class="table-wrapper">
+    <table class="reports-table">
+      <thead>
+        <tr>
+          <th class="col-website">Website / App</th>
+          <th class="col-numeric">Revenue</th>
+          <th class="col-numeric">eCPM</th>
+          <th class="col-numeric">Impressions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of reportData">
+          <td class="col-website">{{ row.websiteApp }}</td>
+          <td class="col-numeric">{{ row.revenue }}</td>
+          <td class="col-numeric">{{ row.ecpm }}</td>
+          <td class="col-numeric">{{ row.impressions }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="disclaimer">
+    Note: Numbers shown on the dashboard are not finalised. Any invalid activity, bot traffic, clickbait traffic, unnatural clicks on ads, etc. used to inflate ad impressions, eCPM, or CTR will result in deduction of fll amount at the end of the month.
+  </p>
+</div>
