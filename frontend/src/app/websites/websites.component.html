@@ -1,9 +1,6 @@
 <div class="websites-container">
   <div class="page-header">
     <h1 class="page-title">Websites</h1>
-    <button type="button" class="btn-add-website" (click)="addNewWebsite()">
-      Add New Website
-    </button>
   </div>
 
   <div class="table-wrapper">
@@ -26,13 +23,23 @@
             </span>
           </td>
           <td class="col-options">
-            <ng-container *ngIf="site.status === 'approved'">
-              <button type="button" class="btn btn-ad-units" (click)="openAdUnits()">&lt;/&gt; Ad Units</button>
-            </ng-container>
-            <ng-container *ngIf="site.status === 'rejected'">
-              <button type="button" class="btn btn-rejection" (click)="showRejectionReasons()">Rejection Reasons</button>
-              <button type="button" class="btn btn-resubmit" (click)="resubmit()">Re-Submit</button>
-            </ng-container>
+            <div class="options-block">
+              <ng-container *ngIf="site.status === 'approved'">
+                <hr class="options-divider" />
+                <div class="options-row options-row-single">
+                  <button type="button" class="btn btn-ad-units" (click)="openAdUnits()">&lt;/&gt; Ad Units</button>
+                </div>
+                <hr class="options-divider" />
+              </ng-container>
+              <ng-container *ngIf="site.status === 'rejected'">
+                <hr class="options-divider" />
+                <div class="options-row options-row-double">
+                  <button type="button" class="btn btn-rejection" (click)="showRejectionReasons()">Rejection Reasons</button>
+                  <button type="button" class="btn btn-resubmit" (click)="resubmit()">Re-Submit</button>
+                </div>
+                <hr class="options-divider" />
+              </ng-container>
+            </div>
           </td>
         </tr>
       </tbody>
