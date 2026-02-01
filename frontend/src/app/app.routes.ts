@@ -3,8 +3,10 @@ import { LayoutComponent } from './layout/layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PaymentsComponent } from './payments/payments.component';
 import { AdUnitsComponent } from './ad-units/ad-units.component';
+import { AppsComponent } from './apps/apps.component';
 import { ReportsComponent } from './reports/reports.component';
 import { WebsitesComponent } from './websites/websites.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -29,12 +31,20 @@ export const routes: Routes = [
         component: WebsitesComponent
       },
       {
+        path: 'apps',
+        component: AppsComponent
+      },
+      {
         path: 'payments',
         component: PaymentsComponent
       },
       {
         path: 'ad-units',
         component: AdUnitsComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       }
     ]
   }
