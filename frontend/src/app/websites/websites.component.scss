@@ -238,3 +238,201 @@
   margin: 0;
   line-height: 1.5;
 }
+
+// Create New Website Modal
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: auto;
+}
+
+.modal {
+  background: #fff;
+  padding: 1.5rem 1.75rem;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #000;
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e7eb;
+  border: none;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #1f2937;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #d1d5db;
+  }
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.modal-input,
+.modal-select {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  font-size: 0.875rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  box-sizing: border-box;
+  background: #fff;
+
+  &:focus {
+    outline: none;
+    border-color: #3b82f6;
+  }
+}
+
+.modal-select {
+  cursor: pointer;
+  appearance: auto;
+}
+
+.modal-submit {
+  width: 100%;
+  background-color: var(--primary-red, #dc2626);
+  color: white;
+  border: none;
+  padding: 0.625rem 1rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #b91c1c;
+  }
+}
+
+// Rejection Reasons Modal
+.rejection-modal {
+  max-width: 520px;
+
+  .modal-header {
+    margin-bottom: 1.25rem; // Keep gap between title and divider line
+  }
+}
+
+.rejection-modal-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0 0 1rem 0;
+}
+
+.rejection-content {
+  font-size: 0.9375rem;
+  color: var(--text-dark, #1f2937);
+  line-height: 1.6;
+}
+
+.rejection-paragraph {
+  margin: 0 0 1rem 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Re-Submit Confirmation Modal (matches design: white card, shadow, green Re-Submit, dark Cancel)
+.resubmit-modal {
+  max-width: 420px;
+  padding: 1.5rem 1.75rem;
+
+  .modal-header {
+    margin-bottom: 0;
+  }
+}
+
+.resubmit-modal-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0.75rem 0 1rem 0;
+}
+
+.resubmit-content {
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+  color: #1f2937;
+  line-height: 1.6;
+  text-align: left;
+
+  p {
+    margin: 0;
+  }
+}
+
+.resubmit-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.btn-resubmit-confirm {
+  background-color: #22c55e;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #16a34a;
+  }
+}
+
+.btn-resubmit-cancel {
+  background-color: #1e293b;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #0f172a;
+  }
+}

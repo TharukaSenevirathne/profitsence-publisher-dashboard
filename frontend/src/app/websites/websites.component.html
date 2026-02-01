@@ -1,4 +1,64 @@
 <div class="websites-container">
+  <!-- Rejection Reasons Modal -->
+  <div class="modal-backdrop" *ngIf="showRejectionModal" (click)="closeRejectionModal()">
+    <div class="modal rejection-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Rejection Reasons</h2>
+        <button type="button" class="modal-close" (click)="closeRejectionModal()" aria-label="Close">×</button>
+      </div>
+      <div class="rejection-modal-divider"></div>
+      <div class="rejection-content" *ngIf="selectedRejectionReasonsParagraphs.length">
+        <p *ngFor="let paragraph of selectedRejectionReasonsParagraphs" class="rejection-paragraph">{{ paragraph }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Re-Submit Confirmation Modal -->
+  <div class="modal-backdrop" *ngIf="showResubmitModal" (click)="closeResubmitModal()">
+    <div class="modal resubmit-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Are you sure to Re Submit ?</h2>
+        <button type="button" class="modal-close" (click)="closeResubmitModal()" aria-label="Close">×</button>
+      </div>
+      <div class="resubmit-modal-divider"></div>
+      <div class="resubmit-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <div class="resubmit-actions">
+        <button type="button" class="btn-resubmit-confirm" (click)="confirmResubmit()">Re-Submit</button>
+        <button type="button" class="btn-resubmit-cancel" (click)="closeResubmitModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create New Website Modal -->
+  <div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Create New</h2>
+        <button type="button" class="modal-close" (click)="closeCreateModal()" aria-label="Close">×</button>
+      </div>
+      <div class="modal-form">
+        <input
+          id="domain-name"
+          type="text"
+          class="modal-input"
+          placeholder="Domain Name"
+          [(ngModel)]="newDomainName"
+        />
+        <select
+          id="select-category"
+          class="modal-select"
+          [(ngModel)]="newCategory"
+        >
+          <option value="" disabled>Select Category</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+      <button type="button" class="modal-submit" (click)="submitNewWebsite()">Submit</button>
+    </div>
+  </div>
+
   <div class="page-header">
     <h1 class="page-title">Websites</h1>
     <button type="button" class="btn-add-website" (click)="addNewWebsite()">Add New Website</button>
@@ -35,8 +95,8 @@
               <ng-container *ngIf="site.status === 'rejected'">
                 <hr class="options-divider" />
                 <div class="options-row options-row-double">
-                  <button type="button" class="btn btn-rejection" (click)="showRejectionReasons()">Rejection Reasons</button>
-                  <button type="button" class="btn btn-resubmit" (click)="resubmit()">Re-Submit</button>
+                  <button type="button" class="btn btn-rejection" (click)="showRejectionReasons(site)">Rejection Reasons</button>
+                  <button type="button" class="btn btn-resubmit" (click)="openResubmitModal(site)">Re-Submit</button>
                 </div>
                 <hr class="options-divider" />
               </ng-container>
