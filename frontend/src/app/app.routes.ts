@@ -6,6 +6,7 @@ import { AdUnitsComponent } from './ad-units/ad-units.component';
 import { AppsComponent } from './apps/apps.component';
 import { ReportsComponent } from './reports/reports.component';
 import { WebsitesComponent } from './websites/websites.component';
+import { SettingsComponent } from './settings/settings.component';
 
 export const routes: Routes = [
   {
@@ -40,6 +41,10 @@ export const routes: Routes = [
       {
         path: 'ad-units',
         component: AdUnitsComponent
+      },
+      {
+        path: 'settings',
+        component: SettingsComponent
       }
     ]
   }
