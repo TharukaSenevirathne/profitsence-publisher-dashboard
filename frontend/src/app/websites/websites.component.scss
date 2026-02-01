@@ -188,22 +188,22 @@
 }
 
 .minimum-requirements {
-  border: 1px dashed var(--border-gray);
-  border-radius: 6px;
-  padding: 1.25rem 1.5rem;
-  background-color: #fafafa;
+  border: 2px dashed #94a3b8;
+  border-radius: 5px;
+  padding: 1.5rem 1.75rem;
+  background-color: #fff;
 }
 
 .requirements-title {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--text-dark);
+  color: #1f335a;
   margin: 0 0 0.75rem 0;
 }
 
 .requirements-list {
   font-size: 0.875rem;
-  color: var(--text-dark);
+  color: #333;
   margin: 0 0 1rem 0;
   padding-left: 1.25rem;
   line-height: 1.6;
@@ -215,7 +215,7 @@
 
 .requirements-note {
   font-size: 0.8125rem;
-  color: var(--primary-red);
+  color: #dc3545;
   margin: 0;
   line-height: 1.5;
 }
