@@ -4,6 +4,9 @@
 }
 
 .page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 1.5rem;
 }
 
@@ -13,6 +16,22 @@
   color: var(--text-dark);
   margin: 0;
   letter-spacing: -0.02em;
+}
+
+.btn-add-website {
+  background-color: var(--primary-red);
+  color: white;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #b91c1c;
+  }
 }
 
 .table-wrapper {

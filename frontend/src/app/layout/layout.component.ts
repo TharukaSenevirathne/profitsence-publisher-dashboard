@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HeaderActionsService } from '../header-actions.service';
 
 @Component({
   selector: 'app-layout',
@@ -11,19 +10,6 @@ import { HeaderActionsService } from '../header-actions.service';
   styleUrl: './layout.component.scss'
 })
 export class LayoutComponent {
-  constructor(
-    private router: Router,
-    private headerActions: HeaderActionsService
-  ) {}
-
-  get isWebsitesPage(): boolean {
-    return this.router.url.includes('/websites');
-  }
-
-  onAddNewWebsite(): void {
-    this.headerActions.triggerAddWebsite();
-  }
-
   menuItems = [
     { label: 'Dashboard', icon: 'home', route: '/dashboard' },
     { label: 'Reports', icon: 'document', route: '/reports' },

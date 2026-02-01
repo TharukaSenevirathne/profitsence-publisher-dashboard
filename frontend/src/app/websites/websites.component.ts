@@ -1,8 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { HeaderActionsService } from '../header-actions.service';
 
 export type WebsiteStatus = 'approved' | 'rejected' | 'pending' | 'verifying';
 
@@ -19,28 +16,13 @@ export interface WebsiteRow {
   templateUrl: './websites.component.html',
   styleUrl: './websites.component.scss'
 })
-export class WebsitesComponent implements OnInit, OnDestroy {
-  private destroy$ = new Subject<void>();
-
+export class WebsitesComponent {
   websites: WebsiteRow[] = [
     { domain: 'domain-abc.com', category: 'News', status: 'approved' },
     { domain: 'domain-def.com', category: 'Sports', status: 'rejected' },
     { domain: 'domain-xyz.com', category: 'Business', status: 'pending' },
     { domain: 'domain-abc.lk', category: 'News', status: 'verifying' }
   ];
-
-  constructor(private headerActions: HeaderActionsService) {}
-
-  ngOnInit(): void {
-    this.headerActions.onAddWebsiteClick
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => this.addNewWebsite());
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   addNewWebsite(): void {
     // Placeholder for add website action
