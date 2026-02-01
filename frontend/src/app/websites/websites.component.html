@@ -1,4 +1,18 @@
 <div class="websites-container">
+  <!-- Rejection Reasons Modal -->
+  <div class="modal-backdrop" *ngIf="showRejectionModal" (click)="closeRejectionModal()">
+    <div class="modal rejection-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Rejection Reasons</h2>
+        <button type="button" class="modal-close" (click)="closeRejectionModal()" aria-label="Close">×</button>
+      </div>
+      <div class="rejection-modal-divider"></div>
+      <div class="rejection-content" *ngIf="selectedRejectionReasonsParagraphs.length">
+        <p *ngFor="let paragraph of selectedRejectionReasonsParagraphs" class="rejection-paragraph">{{ paragraph }}</p>
+      </div>
+    </div>
+  </div>
+
   <!-- Create New Website Modal -->
   <div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
     <div class="modal" (click)="$event.stopPropagation()">
@@ -63,7 +77,7 @@
               <ng-container *ngIf="site.status === 'rejected'">
                 <hr class="options-divider" />
                 <div class="options-row options-row-double">
-                  <button type="button" class="btn btn-rejection" (click)="showRejectionReasons()">Rejection Reasons</button>
+                  <button type="button" class="btn btn-rejection" (click)="showRejectionReasons(site)">Rejection Reasons</button>
                   <button type="button" class="btn btn-resubmit" (click)="resubmit()">Re-Submit</button>
                 </div>
                 <hr class="options-divider" />

@@ -340,3 +340,32 @@
     background-color: #b91c1c;
   }
 }
+
+// Rejection Reasons Modal
+.rejection-modal {
+  max-width: 520px;
+
+  .modal-header {
+    margin-bottom: 1.25rem; // Keep gap between title and divider line
+  }
+}
+
+.rejection-modal-divider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0 0 1rem 0;
+}
+
+.rejection-content {
+  font-size: 0.9375rem;
+  color: var(--text-dark, #1f2937);
+  line-height: 1.6;
+}
+
+.rejection-paragraph {
+  margin: 0 0 1rem 0;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
