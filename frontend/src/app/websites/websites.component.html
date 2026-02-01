@@ -13,6 +13,24 @@
     </div>
   </div>
 
+  <!-- Re-Submit Confirmation Modal -->
+  <div class="modal-backdrop" *ngIf="showResubmitModal" (click)="closeResubmitModal()">
+    <div class="modal resubmit-modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Are you sure to Re Submit ?</h2>
+        <button type="button" class="modal-close" (click)="closeResubmitModal()" aria-label="Close">×</button>
+      </div>
+      <div class="resubmit-modal-divider"></div>
+      <div class="resubmit-content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+      </div>
+      <div class="resubmit-actions">
+        <button type="button" class="btn-resubmit-confirm" (click)="confirmResubmit()">Re-Submit</button>
+        <button type="button" class="btn-resubmit-cancel" (click)="closeResubmitModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Create New Website Modal -->
   <div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
     <div class="modal" (click)="$event.stopPropagation()">
@@ -78,7 +96,7 @@
                 <hr class="options-divider" />
                 <div class="options-row options-row-double">
                   <button type="button" class="btn btn-rejection" (click)="showRejectionReasons(site)">Rejection Reasons</button>
-                  <button type="button" class="btn btn-resubmit" (click)="resubmit()">Re-Submit</button>
+                  <button type="button" class="btn btn-resubmit" (click)="openResubmitModal(site)">Re-Submit</button>
                 </div>
                 <hr class="options-divider" />
               </ng-container>

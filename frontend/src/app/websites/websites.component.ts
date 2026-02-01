@@ -36,6 +36,8 @@ export class WebsitesComponent {
 
   showCreateModal = false;
   showRejectionModal = false;
+  showResubmitModal = false;
+  resubmitSite: WebsiteRow | null = null;
   selectedRejectionReasons = '';
   selectedRejectionDomain = '';
   newDomainName = '';
@@ -87,7 +89,21 @@ export class WebsitesComponent {
       .filter(Boolean);
   }
 
-  resubmit(): void {
-    // Placeholder for Re-Submit
+  openResubmitModal(site: WebsiteRow): void {
+    this.resubmitSite = site;
+    this.showResubmitModal = true;
+  }
+
+  closeResubmitModal(): void {
+    this.showResubmitModal = false;
+    this.resubmitSite = null;
+  }
+
+  confirmResubmit(): void {
+    if (this.resubmitSite) {
+      // Update status to pending for re-review (placeholder for API call)
+      this.resubmitSite.status = 'pending';
+      this.closeResubmitModal();
+    }
   }
 }
