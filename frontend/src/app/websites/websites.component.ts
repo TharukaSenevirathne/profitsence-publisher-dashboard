@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 export type WebsiteStatus = 'approved' | 'rejected' | 'pending' | 'verifying';
 
@@ -12,7 +13,7 @@ export interface WebsiteRow {
 @Component({
   selector: 'app-websites',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './websites.component.html',
   styleUrl: './websites.component.scss'
 })
@@ -24,8 +25,30 @@ export class WebsitesComponent {
     { domain: 'domain-abc.lk', category: 'News', status: 'verifying' }
   ];
 
+  showCreateModal = false;
+  newDomainName = '';
+  newCategory = '';
+  categories = ['News', 'Sports', 'Business', 'Entertainment', 'Technology', 'Other'];
+
   addNewWebsite(): void {
-    // Placeholder for add website action
+    this.newDomainName = '';
+    this.newCategory = '';
+    this.showCreateModal = true;
+  }
+
+  closeCreateModal(): void {
+    this.showCreateModal = false;
+  }
+
+  submitNewWebsite(): void {
+    if (this.newDomainName?.trim() && this.newCategory) {
+      this.websites.push({
+        domain: this.newDomainName.trim(),
+        category: this.newCategory,
+        status: 'pending'
+      });
+      this.closeCreateModal();
+    }
   }
 
   openAdUnits(): void {

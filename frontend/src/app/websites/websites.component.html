@@ -1,4 +1,32 @@
 <div class="websites-container">
+  <!-- Create New Website Modal -->
+  <div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2 class="modal-title">Create New</h2>
+        <button type="button" class="modal-close" (click)="closeCreateModal()" aria-label="Close">×</button>
+      </div>
+      <div class="modal-form">
+        <input
+          id="domain-name"
+          type="text"
+          class="modal-input"
+          placeholder="Domain Name"
+          [(ngModel)]="newDomainName"
+        />
+        <select
+          id="select-category"
+          class="modal-select"
+          [(ngModel)]="newCategory"
+        >
+          <option value="" disabled>Select Category</option>
+          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+        </select>
+      </div>
+      <button type="button" class="modal-submit" (click)="submitNewWebsite()">Submit</button>
+    </div>
+  </div>
+
   <div class="page-header">
     <h1 class="page-title">Websites</h1>
     <button type="button" class="btn-add-website" (click)="addNewWebsite()">Add New Website</button>
