@@ -8,11 +8,21 @@ import { ReportsComponent } from './reports/reports.component';
 import { WebsitesComponent } from './websites/websites.component';
 import { SettingsComponent } from './settings/settings.component';
 import { LoginComponent } from './login/login.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { EmailVerificationComponent } from './email-verification/email-verification.component';
 
 export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+  },
+  {
+    path: 'email-verification',
+    component: EmailVerificationComponent
   },
   {
     path: '',
