@@ -9,36 +9,40 @@
     </select>
     <div
       class="filter-input filter-input-date-trigger"
-      (click)="openDatePicker(startDateInput)"
+      (click)="startPanel.toggle($event)"
       role="button"
       tabindex="0"
-      (keydown.enter)="openDatePicker(startDateInput)"
-      (keydown.space)="openDatePicker(startDateInput); $event.preventDefault()">
-      Start Date
-      <input
-        #startDateInput
-        type="date"
-        class="filter-input-date-hidden"
-        [(ngModel)]="startDate"
-        tabindex="-1"
-        aria-hidden="true" />
+      (keydown.enter)="startPanel.toggle($event)"
+      (keydown.space)="startPanel.toggle($event); $event.preventDefault()">
+      {{ formatDateLabel(startDate, 'Start Date') }}
     </div>
+    <p-overlayPanel #startPanel [appendTo]="'body'" styleClass="reports-date-overlay">
+      <p-calendar
+        [(ngModel)]="startDate"
+        [inline]="true"
+        [showWeek]="false"
+        dateFormat="yy-mm-dd"
+        (onSelect)="onStartDateSelect()"
+        styleClass="reports-inline-calendar reports-calendar-style" />
+    </p-overlayPanel>
     <div
       class="filter-input filter-input-date-trigger"
-      (click)="openDatePicker(endDateInput)"
+      (click)="endPanel.toggle($event)"
       role="button"
       tabindex="0"
-      (keydown.enter)="openDatePicker(endDateInput)"
-      (keydown.space)="openDatePicker(endDateInput); $event.preventDefault()">
-      End Date
-      <input
-        #endDateInput
-        type="date"
-        class="filter-input-date-hidden"
-        [(ngModel)]="endDate"
-        tabindex="-1"
-        aria-hidden="true" />
+      (keydown.enter)="endPanel.toggle($event)"
+      (keydown.space)="endPanel.toggle($event); $event.preventDefault()">
+      {{ formatDateLabel(endDate, 'End Date') }}
     </div>
+    <p-overlayPanel #endPanel [appendTo]="'body'" styleClass="reports-date-overlay">
+      <p-calendar
+        [(ngModel)]="endDate"
+        [inline]="true"
+        [showWeek]="false"
+        dateFormat="yy-mm-dd"
+        (onSelect)="onEndDateSelect()"
+        styleClass="reports-inline-calendar reports-calendar-style" />
+    </p-overlayPanel>
   </div>
 
   <div class="table-wrapper">

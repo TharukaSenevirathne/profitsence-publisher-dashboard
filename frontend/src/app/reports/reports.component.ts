@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CalendarModule } from 'primeng/calendar';
+import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
 
 export interface ReportRow {
   websiteApp: string;
@@ -12,14 +14,17 @@ export interface ReportRow {
 @Component({
   selector: 'app-reports',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, CalendarModule, OverlayPanelModule],
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.scss'
 })
 export class ReportsComponent {
+  @ViewChild('startPanel') startPanel!: OverlayPanel;
+  @ViewChild('endPanel') endPanel!: OverlayPanel;
+
   selectedSiteApp = '';
-  startDate = '';
-  endDate = '';
+  startDate: Date | null = null;
+  endDate: Date | null = null;
 
   siteAppOptions = [
     { value: '', label: 'Select Site / App' },
@@ -36,9 +41,16 @@ export class ReportsComponent {
     { websiteApp: 'Wasp - App', revenue: '$980.26', ecpm: '$0.169', impressions: '4,264,416' }
   ];
 
-  openDatePicker(inputEl: HTMLInputElement | undefined): void {
-    if (inputEl?.showPicker) {
-      inputEl.showPicker();
-    }
+  formatDateLabel(date: Date | null, placeholder: string): string {
+    if (!date) return placeholder;
+    return date.toLocaleDateString('en-CA', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
+
+  onStartDateSelect(): void {
+    this.startPanel.hide();
+  }
+
+  onEndDateSelect(): void {
+    this.endPanel.hide();
   }
 }

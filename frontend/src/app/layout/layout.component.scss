@@ -25,22 +25,11 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  margin: 0;
   letter-spacing: -0.02em;
-  display: flex;
-  align-items: baseline;
-}
-
-.logo-profit {
-  background: linear-gradient(135deg, #c8102e 0%, #8b1538 50%, #6b2d5c 100%);
+  background: linear-gradient(180deg, #e60000 0%, #660000 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-}
-
-.logo-sence {
-  color: var(--text-dark);
-  -webkit-text-fill-color: var(--text-dark);
 }
 
 .logo-dot {

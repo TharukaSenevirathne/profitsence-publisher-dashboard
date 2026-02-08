@@ -75,12 +75,168 @@
   user-select: none;
 }
 
-.filter-input-date-hidden {
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
+/* PrimeNG date overlay: nice calendar inside overlay */
+::ng-deep .reports-date-overlay.p-overlaypanel {
+  .p-overlaypanel-content {
+    padding: 0;
+    overflow: visible;
+  }
+}
+
+::ng-deep .reports-inline-calendar.p-calendar .p-calendar-inline {
+  padding: 0.75rem;
+  border: none;
+  background: transparent;
+  /* Show full month in one view: remove scrollbar, give enough width */
+  overflow: visible;
+  min-width: 280px;
+}
+
+/* Calendar look: clean white box, week numbers, bold weekdays, light grey selected date */
+::ng-deep .reports-calendar-style.p-calendar {
+  .p-datepicker {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    overflow: visible;
+  }
+
+  .p-datepicker-inline {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    background: #ffffff;
+    overflow: visible;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Calendar header: exact match to reference – white, centered month/year, gray chevrons, thin line */
+  .p-datepicker-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.625rem 0.75rem;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  .p-datepicker-header .p-datepicker-title {
+    margin: 0 auto;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  .p-datepicker-header .p-datepicker-title .p-datepicker-month,
+  .p-datepicker-header .p-datepicker-title .p-datepicker-year {
+    color: inherit;
+    font-weight: inherit;
+    /* Remove box structure: plain text only */
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    min-height: 0;
+  }
+
+  .p-datepicker-header .p-datepicker-title button.p-datepicker-month,
+  .p-datepicker-header .p-datepicker-title button.p-datepicker-year {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .p-datepicker-prev,
+  .p-datepicker-next {
+    width: 2rem;
+    height: 2rem;
+    min-width: 2rem;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    color: #6b7280;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .p-datepicker-prev .p-datepicker-prev-icon,
+  .p-datepicker-next .p-datepicker-next-icon {
+    color: #6b7280;
+  }
+
+  .p-datepicker-prev:hover,
+  .p-datepicker-next:hover {
+    background: transparent;
+    color: #4b5563;
+  }
+
+  .p-datepicker-prev:hover .p-datepicker-prev-icon,
+  .p-datepicker-next:hover .p-datepicker-next-icon {
+    color: #4b5563;
+  }
+
+  /* Keep prev/next as plain chevrons only (no button chrome) */
+  .p-datepicker-header button.p-datepicker-prev,
+  .p-datepicker-header button.p-datepicker-next {
+    border: none;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .p-datepicker table {
+    font-size: 0.8125rem;
+    margin: 0.75rem;
+  }
+
+  .p-datepicker thead th {
+    padding: 0.35rem 0.25rem;
+    font-weight: 700;
+    color: #0f172a;
+    text-align: center;
+  }
+
+  .p-datepicker tbody td {
+    padding: 0.2rem;
+  }
+
+  .p-datepicker tbody td > span {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    font-weight: 400;
+    color: #0f172a;
+  }
+
+  .p-datepicker tbody td > span:hover {
+    background: #f1f5f9;
+  }
+
+  .p-datepicker tbody td > span.p-highlight {
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+
+  .p-datepicker tbody td.p-datepicker-other-month > span {
+    color: #94a3b8;
+  }
+
+  /* Hide PrimeNG’s screen-reader duplicate of the selected date (fixes double “14” when reopening calendar) */
+  .p-datepicker .p-hidden-accessible {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+  }
 }
 
 .table-wrapper {

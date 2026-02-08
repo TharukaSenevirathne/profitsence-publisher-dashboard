@@ -7,8 +7,13 @@ import { AppsComponent } from './apps/apps.component';
 import { ReportsComponent } from './reports/reports.component';
 import { WebsitesComponent } from './websites/websites.component';
 import { SettingsComponent } from './settings/settings.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: '',
     component: LayoutComponent,
