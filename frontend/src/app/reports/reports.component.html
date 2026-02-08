@@ -5,7 +5,9 @@
     <select
       class="filter-select"
       [(ngModel)]="selectedSiteApp">
-      <option *ngFor="let opt of siteAppOptions" [value]="opt.value">{{ opt.label }}</option>
+      @for (opt of siteAppOptions; track opt.value) {
+        <option [value]="opt.value">{{ opt.label }}</option>
+      }
     </select>
     <div
       class="filter-input filter-input-date-trigger"
@@ -56,12 +58,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let row of reportData">
-          <td class="col-website">{{ row.websiteApp }}</td>
-          <td class="col-numeric">{{ row.revenue }}</td>
-          <td class="col-numeric">{{ row.ecpm }}</td>
-          <td class="col-numeric">{{ row.impressions }}</td>
-        </tr>
+        @for (row of reportData; track row.websiteApp) {
+          <tr>
+            <td class="col-website">{{ row.websiteApp }}</td>
+            <td class="col-numeric">{{ row.revenue }}</td>
+            <td class="col-numeric">{{ row.ecpm }}</td>
+            <td class="col-numeric">{{ row.impressions }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

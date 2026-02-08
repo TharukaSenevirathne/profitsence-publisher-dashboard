@@ -14,7 +14,8 @@
   </section>
 
 
-    <section *ngIf="activeTab==='finalized'" class="finalized">
+    @if (activeTab==='finalized') {
+    <section class="finalized">
       <div class="actions">
       </div>
 
@@ -52,8 +53,10 @@
         </tbody>
       </table>
     </section>
+    }
 
-    <section *ngIf="activeTab==='mypayouts'" class="mypayouts">
+    @if (activeTab==='mypayouts') {
+    <section class="mypayouts">
     <div class="actions">
       <button class="request" (click)="openRequestModal()">Request New Payout</button>
     </div>
@@ -69,20 +72,24 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let p of payouts">
-          <td>{{ p.requestDate }}</td>
-          <td>{{ p.amount }}</td>
-          <td>{{ p.payoutDate }}</td>
-          <td [class.paid]="p.status==='Paid'">{{ p.status }}</td>
-          <td><button class="receipt">Download Receipt</button></td>
-        </tr>
+        @for (p of payouts; track p.requestDate) {
+          <tr>
+            <td>{{ p.requestDate }}</td>
+            <td>{{ p.amount }}</td>
+            <td>{{ p.payoutDate }}</td>
+            <td [class.paid]="p.status==='Paid'">{{ p.status }}</td>
+            <td><button class="receipt">Download Receipt</button></td>
+          </tr>
+        }
       </tbody>
     </table>
 
     <p class="note">Note: Your minimum available balance to be at least $100 to request a Payout. For payment-related questions please send an email to payments&#64;profitsence.com</p>
   </section>
+  }
 
-  <section *ngIf="activeTab==='method'" class="method">
+  @if (activeTab==='method') {
+  <section class="method">
     <h3>Update My Payment Method</h3>
     <div class="form-grid">
       <select [(ngModel)]="paymentMethod.method">
@@ -122,9 +129,11 @@
       <button class="save" (click)="savePaymentMethod()">Save Details</button>
     </div>
   </section>
+  }
 
   <!-- Request popup-->
-    <div class="modal-backdrop" *ngIf="showRequestModal">
+  @if (showRequestModal) {
+    <div class="modal-backdrop">
     <div class="modal">
       <button class="close" (click)="closeRequestModal()">✕</button>
       <h4>Payout Request</h4>
@@ -133,5 +142,6 @@
       <button class="submit" (click)="submitRequest()">Submit</button>
     </div>
     </div>
+  }
   </div>
 </div>

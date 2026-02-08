@@ -26,12 +26,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let stat of statistics">
-          <td>{{ stat.website }}</td>
-          <td>{{ stat.revenue }}</td>
-          <td>{{ stat.ecpm }}</td>
-          <td>{{ stat.impressions }}</td>
-        </tr>
+        @for (stat of statistics; track stat.website) {
+          <tr>
+            <td>{{ stat.website }}</td>
+            <td>{{ stat.revenue }}</td>
+            <td>{{ stat.ecpm }}</td>
+            <td>{{ stat.impressions }}</td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

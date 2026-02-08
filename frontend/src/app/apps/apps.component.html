@@ -14,21 +14,25 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of adUnits">
-            <td class="col-website">{{ item.unit }}</td>
-            <td class="col-website code-cell">
-              <span *ngIf="isPending(item.code)" class="code-pending">{{ item.code }}</span>
-              <ng-container *ngIf="!isPending(item.code)">
-                <code>{{ item.code }}</code>
-                <button class="copy-btn" (click)="copyCode(item.code)" title="Copy">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                    <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-                  </svg>
-                </button>
-              </ng-container>
-            </td>
-          </tr>
+          @for (item of adUnits; track item.code) {
+            <tr>
+              <td class="col-website">{{ item.unit }}</td>
+              <td class="col-website code-cell">
+                @if (isPending(item.code)) {
+                  <span class="code-pending">{{ item.code }}</span>
+                }
+                @if (!isPending(item.code)) {
+                  <code>{{ item.code }}</code>
+                  <button class="copy-btn" (click)="copyCode(item.code)" title="Copy">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+                      <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+                    </svg>
+                  </button>
+                }
+              </td>
+            </tr>
+          }
         </tbody>
       </table>
     </div>
@@ -45,22 +49,26 @@
     </div>
   </div>
 
-  <div *ngIf="showCreateModal" class="modal-backdrop">
-    <div class="modal">
-      <div class="modal-header">
-        <h2>Create Ad Unit</h2>
-        <button class="close-btn" (click)="closeCreateModal()">&#10005;</button>
-      </div>
-      <div class="modal-body">
-        <label class="modal-label">Ad Unit Type</label>
-        <select class="select-dropdown" #adUnitSelect>
-          <option *ngFor="let opt of adUnitOptions" [value]="opt">{{ opt }}</option>
-        </select>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-cancel" (click)="closeCreateModal()">Cancel</button>
-        <button class="btn-submit" (click)="closeCreateModal()">Create</button>
+  @if (showCreateModal) {
+    <div class="modal-backdrop">
+      <div class="modal">
+        <div class="modal-header">
+          <h2>Create Ad Unit</h2>
+          <button class="close-btn" (click)="closeCreateModal()">&#10005;</button>
+        </div>
+        <div class="modal-body">
+          <label class="modal-label">Ad Unit Type</label>
+          <select class="select-dropdown" #adUnitSelect>
+            @for (opt of adUnitOptions; track opt) {
+              <option [value]="opt">{{ opt }}</option>
+            }
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button class="btn-cancel" (click)="closeCreateModal()">Cancel</button>
+          <button class="btn-submit" (click)="closeCreateModal()">Create</button>
+        </div>
       </div>
     </div>
-  </div>
+  }
 </div>

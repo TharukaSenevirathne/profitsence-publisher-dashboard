@@ -1,20 +1,27 @@
 <div class="websites-container">
   <!-- Rejection Reasons Modal -->
-  <div class="modal-backdrop" *ngIf="showRejectionModal" (click)="closeRejectionModal()">
-    <div class="modal rejection-modal" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2 class="modal-title">Rejection Reasons</h2>
-        <button type="button" class="modal-close" (click)="closeRejectionModal()" aria-label="Close">×</button>
-      </div>
-      <div class="rejection-modal-divider"></div>
-      <div class="rejection-content" *ngIf="selectedRejectionReasonsParagraphs.length">
-        <p *ngFor="let paragraph of selectedRejectionReasonsParagraphs" class="rejection-paragraph">{{ paragraph }}</p>
+  @if (showRejectionModal) {
+    <div class="modal-backdrop" (click)="closeRejectionModal()">
+      <div class="modal rejection-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+          <h2 class="modal-title">Rejection Reasons</h2>
+          <button type="button" class="modal-close" (click)="closeRejectionModal()" aria-label="Close">×</button>
+        </div>
+        <div class="rejection-modal-divider"></div>
+        @if (selectedRejectionReasonsParagraphs.length) {
+          <div class="rejection-content">
+            @for (paragraph of selectedRejectionReasonsParagraphs; track $index) {
+              <p class="rejection-paragraph">{{ paragraph }}</p>
+            }
+          </div>
+        }
       </div>
     </div>
-  </div>
+  }
 
   <!-- Re-Submit Confirmation Modal -->
-  <div class="modal-backdrop" *ngIf="showResubmitModal" (click)="closeResubmitModal()">
+  @if (showResubmitModal) {
+  <div class="modal-backdrop" (click)="closeResubmitModal()">
     <div class="modal resubmit-modal" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 class="modal-title">Are you sure to Re Submit ?</h2>
@@ -30,9 +37,11 @@
       </div>
     </div>
   </div>
+  }
 
   <!-- Create New Website Modal -->
-  <div class="modal-backdrop" *ngIf="showCreateModal" (click)="closeCreateModal()">
+  @if (showCreateModal) {
+  <div class="modal-backdrop" (click)="closeCreateModal()">
     <div class="modal" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <h2 class="modal-title">Create New</h2>
@@ -52,12 +61,15 @@
           [(ngModel)]="newCategory"
         >
           <option value="" disabled>Select Category</option>
-          <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+          @for (cat of categories; track cat) {
+            <option [value]="cat">{{ cat }}</option>
+          }
         </select>
       </div>
       <button type="button" class="modal-submit" (click)="submitNewWebsite()">Submit</button>
     </div>
   </div>
+  }
 
   <div class="page-header">
     <h1 class="page-title">Websites</h1>
@@ -75,34 +87,36 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let site of websites">
-          <td class="col-domain">{{ site.domain }}</td>
-          <td class="col-category">{{ site.category }}</td>
-          <td class="col-status">
-            <span class="status-badge status-{{ site.status }}">
-              {{ site.status === 'approved' ? 'Approved' : site.status === 'rejected' ? 'Rejected' : site.status === 'pending' ? 'Pending' : 'Verifying' }}
-            </span>
-          </td>
-          <td class="col-options">
-            <div class="options-block">
-              <ng-container *ngIf="site.status === 'approved'">
-                <hr class="options-divider" />
-                <div class="options-row options-row-single">
-                  <button type="button" class="btn btn-ad-units" (click)="openAdUnits()">&lt;/&gt; Ad Units</button>
-                </div>
-                <hr class="options-divider" />
-              </ng-container>
-              <ng-container *ngIf="site.status === 'rejected'">
-                <hr class="options-divider" />
-                <div class="options-row options-row-double">
-                  <button type="button" class="btn btn-rejection" (click)="showRejectionReasons(site)">Rejection Reasons</button>
-                  <button type="button" class="btn btn-resubmit" (click)="openResubmitModal(site)">Re-Submit</button>
-                </div>
-                <hr class="options-divider" />
-              </ng-container>
-            </div>
-          </td>
-        </tr>
+        @for (site of websites; track site.domain) {
+          <tr>
+            <td class="col-domain">{{ site.domain }}</td>
+            <td class="col-category">{{ site.category }}</td>
+            <td class="col-status">
+              <span class="status-badge status-{{ site.status }}">
+                {{ site.status === 'approved' ? 'Approved' : site.status === 'rejected' ? 'Rejected' : site.status === 'pending' ? 'Pending' : 'Verifying' }}
+              </span>
+            </td>
+            <td class="col-options">
+              <div class="options-block">
+                @if (site.status === 'approved') {
+                  <hr class="options-divider" />
+                  <div class="options-row options-row-single">
+                    <button type="button" class="btn btn-ad-units" (click)="openAdUnits()">&lt;/&gt; Ad Units</button>
+                  </div>
+                  <hr class="options-divider" />
+                }
+                @if (site.status === 'rejected') {
+                  <hr class="options-divider" />
+                  <div class="options-row options-row-double">
+                    <button type="button" class="btn btn-rejection" (click)="showRejectionReasons(site)">Rejection Reasons</button>
+                    <button type="button" class="btn btn-resubmit" (click)="openResubmitModal(site)">Re-Submit</button>
+                  </div>
+                  <hr class="options-divider" />
+                }
+              </div>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>
