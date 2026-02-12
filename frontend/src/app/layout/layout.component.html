@@ -2,16 +2,14 @@
   <!-- Header -->
   <header class="header">
     <div class="header-left">
-      <h1 class="logo">ProfitSence</h1>
+      <h1 class="logo">ProfitSence<span class="logo-dot">.</span></h1>
     </div>
     <div class="header-right">
       <div class="user-profile">
         <div class="avatar">AS</div>
         <span class="user-greeting">Hi!</span>
         <span class="user-name">Angeora Solutions</span>
-        <svg class="dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M2 4L6 8L10 4" stroke="#6b7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <i class="pi pi-angle-down dropdown-icon"></i>
       </div>
     </div>
   </header>
@@ -25,7 +23,7 @@
             [routerLink]="item.route" 
             routerLinkActive="active"
             class="nav-item">
-            <i class="pi nav-icon" [ngClass]="item.icon" aria-hidden="true"></i>
+            <i class="pi nav-icon" [ngClass]="item.icon"></i>          <!--used binding here-->
             <span class="nav-label">{{ item.label }}</span>
           </a>
         }

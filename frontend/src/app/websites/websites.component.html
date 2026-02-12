@@ -1,5 +1,4 @@
 <div class="websites-container">
-  <!-- Rejection Reasons Modal -->
   @if (showRejectionModal) {
     <div class="modal-backdrop" (click)="closeRejectionModal()">
       <div class="modal rejection-modal" (click)="$event.stopPropagation()">
@@ -119,6 +118,44 @@
         }
       </tbody>
     </table>
+  </div>
+
+  <!-- Card layout for small screens -->
+  <div class="websites-cards">
+    @for (site of websites; track site.domain) {
+      <article class="website-card">
+        <div class="card-row">
+          <span class="card-label">Domain</span>
+          <span class="card-value card-domain">{{ site.domain }}</span>
+        </div>
+        <div class="card-row">
+          <span class="card-label">Category</span>
+          <span class="card-value">{{ site.category }}</span>
+        </div>
+        <div class="card-row">
+          <span class="card-label">Status</span>
+          <span class="card-value">
+            <span class="status-badge status-{{ site.status }}">
+              {{ site.status === 'approved' ? 'Approved' : site.status === 'rejected' ? 'Rejected' : site.status === 'pending' ? 'Pending' : 'Verifying' }}
+            </span>
+          </span>
+        </div>
+        @if (site.status === 'approved' || site.status === 'rejected') {
+          <div class="card-row card-options">
+            <span class="card-label">Options</span>
+            <div class="card-actions">
+              @if (site.status === 'approved') {
+                <button type="button" class="btn btn-ad-units" (click)="openAdUnits()">&lt;/&gt; Ad Units</button>
+              }
+              @if (site.status === 'rejected') {
+                <button type="button" class="btn btn-rejection" (click)="showRejectionReasons(site)">Rejection Reasons</button>
+                <button type="button" class="btn btn-resubmit" (click)="openResubmitModal(site)">Re-Submit</button>
+              }
+            </div>
+          </div>
+        }
+      </article>
+    }
   </div>
 
   <section class="minimum-requirements">

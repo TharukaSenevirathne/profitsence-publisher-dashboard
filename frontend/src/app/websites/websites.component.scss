@@ -7,6 +7,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 
@@ -36,7 +38,9 @@
 
 .table-wrapper {
   background-color: var(--white);
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
   margin-bottom: 1.5rem;
   border-bottom: 1px solid var(--border-gray);
   width: 100%;
@@ -44,6 +48,7 @@
 
 .websites-table {
   width: 100%;
+  min-width: 560px;
   border-collapse: collapse;
   table-layout: fixed;
 
@@ -111,6 +116,122 @@
   }
 }
 
+// Card layout (visible on small screens only)
+.websites-cards {
+  display: none;
+  margin-bottom: 1.5rem;
+}
+
+.website-card {
+  background-color: var(--white);
+  border: 1px solid var(--border-gray);
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f1f5f9;
+
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.card-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+
+.card-value {
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  word-break: break-all;
+}
+
+.card-domain {
+  font-weight: 500;
+}
+
+.card-options .card-label {
+  align-self: flex-start;
+  padding-top: 0.25rem;
+}
+
+.card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+// Responsive: show cards on small screens, table on larger
+@media (max-width: 767px) {
+  .table-wrapper {
+    display: none;
+  }
+
+  .websites-cards {
+    display: block;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-add-website {
+    width: 100%;
+  }
+
+  .minimum-requirements {
+    padding: 1rem 1.25rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .websites-cards {
+    display: none;
+  }
+}
+
+// Tighter table padding on medium screens (when table is still visible)
+@media (max-width: 1023px) and (min-width: 768px) {
+  .websites-table {
+    thead th,
+    tbody td {
+      padding-left: 1rem;
+      padding-right: 1rem;
+
+      &:first-child {
+        padding-left: 1rem;
+      }
+      &:last-child {
+        padding-right: 1rem;
+      }
+    }
+  }
+}
+
 .status-badge {
   display: inline-block;
   font-weight: 500;
@@ -155,9 +276,10 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  flex-wrap: wrap;
 
   &.options-row-double {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
 }
 

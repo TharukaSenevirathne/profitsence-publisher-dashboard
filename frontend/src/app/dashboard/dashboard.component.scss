@@ -6,18 +6,13 @@
 
 .revenue-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));  //Create as many columns as possible that fit inside the container
   gap: 1.5rem;
-}
-
-.charts-section {
-  width: 100%;
 }
 
 .charts-placeholder {
   background-color: #000000;
   border-radius: 12px;
-  padding: 4rem 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

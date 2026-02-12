@@ -3,11 +3,7 @@
   background-color: var(--card-blue);
   border-radius: 12px;
   padding: 1.5rem;
-  overflow: hidden;
   min-height: 140px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .card-background-icon {
@@ -19,11 +15,6 @@
   opacity: 0.2;
   color: var(--text-dark);
   line-height: 1;
-}
-
-.card-content {
-  position: relative;
-  z-index: 1;
 }
 
 .card-label {
