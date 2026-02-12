@@ -1,147 +1,172 @@
 <div class="payments-page">
   <div class="page-inner">
-    <div class="revenue-cards">
-    <app-revenue-card period="Available Balance" [amount]="'$' + availableBalance.toFixed(2)" color="blue"></app-revenue-card>
-    <app-revenue-card period="Total Finalized Earnings" amount="$1,250.54" color="yellow"></app-revenue-card>
-    <app-revenue-card period="Last Month Payout" amount="$120.54" color="pink"></app-revenue-card>
-    <app-revenue-card period="Total Payouts" amount="$1,150.54" color="purple"></app-revenue-card>
+    
+    <div class="revenue-cards mb-4">
+      <app-revenue-card period="Available Balance" [amount]="'$' + availableBalance.toFixed(2)" color="blue"></app-revenue-card>
+      <app-revenue-card period="Total Finalized Earnings" amount="$1,250.54" color="yellow"></app-revenue-card>
+      <app-revenue-card period="Last Month Payout" amount="$120.54" color="pink"></app-revenue-card>
+      <app-revenue-card period="Total Payouts" amount="$1,150.54" color="purple"></app-revenue-card>
+    </div>
+
+    <div class="card-container">
+      <p-tabView [(activeIndex)]="activeIndex">
+        
+        <p-tabPanel header="Finalized Revenue">
+          <p-table [value]="finalizedData" styleClass="p-datatable-striped" [tableStyle]="{'min-width': '60rem'}">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Time Period</th>
+                <th>Total Revenue</th>
+                <th>Deductions</th>
+                <th>Commission</th>
+                <th>Final Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+              <tr>
+                <td class="font-bold">{{ item.period }}</td>
+                <td>{{ item.revenue | currency }}</td>
+                <td class="text-red-500">{{ item.deductions | currency }}</td>
+                <td>{{ item.commission | currency }}</td>
+                <td class="font-bold text-900">{{ item.final | currency }}</td>
+                <td><p-tag [value]="item.status" [severity]="getSeverity(item.status)" styleClass="medium-tag"></p-tag></td>
+                <td>
+                  <button pButton label="Download Receipt" icon="pi pi-download" class="p-button-outlined p-button-secondary p-button-sm receipt-btn"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </p-tabPanel>
+
+        <p-tabPanel header="My Payouts">
+          <div class="flex justify-content-start mb-3">
+             <p-button label="Request New Payout" icon="pi pi-wallet" styleClass="p-button-success medium-btn" (onClick)="openRequestModal()"></p-button>
+          </div>
+
+          <p-table [value]="payouts" styleClass="p-datatable-striped">
+            <ng-template pTemplate="header">
+              <tr>
+                <th>Request Date</th>
+                <th>Amount</th>
+                <th>Payout Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-p>
+              <tr>
+                <td>{{ p.requestDate }}</td>
+                <td class="font-bold text-900">{{ p.amount }}</td>
+                <td>{{ p.payoutDate }}</td>
+                <td><p-tag [value]="p.status" [severity]="getSeverity(p.status)" styleClass="medium-tag"></p-tag></td>
+                <td>
+                   <button pButton label="Download Receipt" icon="pi pi-download" class="p-button-outlined p-button-secondary p-button-sm receipt-btn"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+
+          <div class="mt-3 p-3 surface-ground border-round-md">
+             <p class="text-pink-600 text-sm m-0"><i class="pi pi-info-circle mr-2"></i> <strong>Note:</strong> Your minimum available balance to be at least $100 to request a Payout. For payment-related questions please send an email to payments&#64;profitsence.com</p>
+          </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Payment Method">
+          <div class="py-2">
+            <h3 class="text-900 font-bold text-lg mb-4 border-bottom-1 surface-border pb-2">Update My Payment Method</h3>
+            
+            <div class="formgrid grid p-fluid" style="row-gap: 1rem;">
+              
+              <div class="field col-12 md:col-6 px-3">
+                <label class="font-semibold block mb-2 text-700 text-sm">Payment Method</label>
+                <p-dropdown 
+                    [options]="methodOptions" 
+                    [(ngModel)]="paymentMethod.method" 
+                    placeholder="Select Method" 
+                    styleClass="medium-input" 
+                    [style]="{'width':'100%'}" 
+                    appendTo="body">
+                </p-dropdown>
+              </div>
+              <div class="field col-12 md:col-6 px-3">
+                <label class="font-semibold block mb-2 text-700 text-sm">Currency</label>
+                <p-dropdown 
+                    [options]="currencyOptions" 
+                    [(ngModel)]="paymentMethod.currency" 
+                    placeholder="Select Currency" 
+                    styleClass="medium-input" 
+                    [style]="{'width':'100%'}" 
+                    appendTo="body">
+                </p-dropdown>
+              </div>
+              <div class="field col-12 md:col-6 px-3">
+                 <label class="font-semibold block mb-2 text-700 text-sm">Account Type</label>
+                 <p-dropdown 
+                    [options]="accountTypeOptions" 
+                    [(ngModel)]="paymentMethod.accountType" 
+                    placeholder="Select Type" 
+                    styleClass="medium-input" 
+                    [style]="{'width':'100%'}" 
+                    appendTo="body">
+                 </p-dropdown>
+              </div>
+              
+              <div class="field col-12 md:col-6 px-3">
+                 <label class="font-semibold block mb-2 text-700 text-sm">Account Name</label>
+                 <input pInputText placeholder="Account Name" [(ngModel)]="paymentMethod.accountName" class="w-full medium-input" />
+              </div>
+              <div class="field col-12 md:col-6 px-3">
+                 <label class="font-semibold block mb-2 text-700 text-sm">Account Number</label>
+                 <input pInputText placeholder="Account Number" [(ngModel)]="paymentMethod.accountNumber" class="w-full medium-input"/>
+              </div>
+              <div class="field col-12 md:col-6 px-3">
+                 <label class="font-semibold block mb-2 text-700 text-sm">Bank Name</label>
+                 <input pInputText placeholder="Bank Name" [(ngModel)]="paymentMethod.bankName" class="w-full medium-input"/>
+              </div>
+               
+              <div class="field col-12 md:col-6 px-3">
+                  <label class="block mb-2 font-semibold text-700 text-sm">Bank City</label>
+                  <input pInputText [(ngModel)]="paymentMethod.bankCity" class="w-full medium-input"/>
+              </div>
+              <div class="field col-12 md:col-6 px-3">
+                  <label class="block mb-2 font-semibold text-700 text-sm">Bank Country</label>
+                  <input pInputText [(ngModel)]="paymentMethod.bankCountry" class="w-full medium-input"/>
+              </div>
+              <div class="field col-12 md:col-6 px-3">
+                  <label class="block mb-2 font-semibold text-700 text-sm">Bank Swift/Routing</label>
+                  <input pInputText [(ngModel)]="paymentMethod.bankSwift" class="w-full medium-input"/>
+              </div>
+               
+              <div class="col-12 mt-3 px-3">
+                 <p-button label="Save Details" styleClass="p-button-danger medium-btn w-auto" (onClick)="savePaymentMethod()"></p-button>
+              </div>
+            </div>
+          </div>
+        </p-tabPanel>
+
+      </p-tabView>
+    </div>
   </div>
 
-    <section class="tabs">
-    <button (click)="activeTab='finalized'" [class.active]="activeTab==='finalized'">Finalized Revenue</button>
-    <button (click)="activeTab='mypayouts'" [class.active]="activeTab==='mypayouts'">My Payouts</button>
-    <button (click)="activeTab='method'" [class.active]="activeTab==='method'">Payment Method</button>
-  </section>
-
-
-    @if (activeTab==='finalized') {
-    <section class="finalized">
-      <div class="actions">
+  <p-dialog header="Payout Request" [(visible)]="showRequestModal" [modal]="true" [style]="{width: '400px'}" [draggable]="false" [resizable]="false">
+      <div class="flex flex-column gap-3 pt-3 pb-2">
+         <div class="surface-ground p-3 border-round-md mb-1 text-center border-1 surface-border">
+            <span class="text-600 block mb-1 font-semibold text-sm">Available Balance</span>
+            <span class="text-2xl font-bold text-900">${{ availableBalance.toFixed(2) }}</span>
+         </div>
+         
+         <div class="field">
+            <label class="block font-bold mb-2 text-sm">Enter Amount</label>
+            <div class="p-inputgroup">
+                <span class="p-inputgroup-addon font-bold">$</span>
+                <input type="text" pInputText placeholder="0.00" [(ngModel)]="requestedAmount" class="p-2"/>
+            </div>
+         </div>
       </div>
-
-      <table class="finalized-table">
-        <thead>
-          <tr>
-            <th>Time Period</th>
-            <th>Total Revenue</th>
-            <th>Deductions</th>
-            <th>Commission</th>
-            <th>Final Amount</th>
-            <th>Status</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>June 2023</td>
-            <td>$150.55</td>
-            <td>$10.55</td>
-            <td>$15.00</td>
-            <td>$135.00</td>
-            <td class="status pending">Pending</td>
-            <td><button class="receipt" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 8H5a2 2 0 0 0-2 2v6h4v4h10v-4h4v-6a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="3" width="10" height="5" rx="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Download Receipt</button></td>
-          </tr>
-          <tr>
-            <td>May 2023</td>
-            <td>$160.65</td>
-            <td>$10.65</td>
-            <td>$15.00</td>
-            <td>$145.00</td>
-            <td class="status finalized">Finalized</td>
-            <td><button class="receipt" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 8H5a2 2 0 0 0-2 2v6h4v4h10v-4h4v-6a2 2 0 0 0-2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><rect x="7" y="3" width="10" height="5" rx="1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> Download Receipt</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    }
-
-    @if (activeTab==='mypayouts') {
-    <section class="mypayouts">
-    <div class="actions">
-      <button class="request" (click)="openRequestModal()">Request New Payout</button>
-    </div>
-
-    <table class="payouts-table">
-      <thead>
-        <tr>
-          <th>Request Date</th>
-          <th>Amount</th>
-          <th>Payout Date</th>
-          <th>Status</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        @for (p of payouts; track p.requestDate) {
-          <tr>
-            <td>{{ p.requestDate }}</td>
-            <td>{{ p.amount }}</td>
-            <td>{{ p.payoutDate }}</td>
-            <td [class.paid]="p.status==='Paid'">{{ p.status }}</td>
-            <td><button class="receipt">Download Receipt</button></td>
-          </tr>
-        }
-      </tbody>
-    </table>
-
-    <p class="note">Note: Your minimum available balance to be at least $100 to request a Payout. For payment-related questions please send an email to payments&#64;profitsence.com</p>
-  </section>
-  }
-
-  @if (activeTab==='method') {
-  <section class="method">
-    <h3>Update My Payment Method</h3>
-    <div class="form-grid">
-      <select [(ngModel)]="paymentMethod.method">
-        <option value="">Payment Method</option>
-        <option value="bank">Bank Transfer</option>
-        <option value="paypal">PayPal</option>
-      </select>
-      <select [(ngModel)]="paymentMethod.currency">
-        <option value="">Select Payout Currency</option>
-        <option value="usd">USD</option>
-        <option value="eur">EUR</option>
-      </select>
-
-      <select [(ngModel)]="paymentMethod.accountType">
-        <option value="">Select Account Type</option>
-        <option value="checking">Checking</option>
-        <option value="savings">Savings</option>
-      </select>
-
-      <input placeholder="Account Name" [(ngModel)]="paymentMethod.accountName" />
-      <input placeholder="Account Number" [(ngModel)]="paymentMethod.accountNumber" />
-      <input placeholder="Bank Name" [(ngModel)]="paymentMethod.bankName" />
-      <input placeholder="Bank Address" [(ngModel)]="paymentMethod.bankAddress" />
-      <input placeholder="Bank City" [(ngModel)]="paymentMethod.bankCity" />
-      <input placeholder="Bank State" [(ngModel)]="paymentMethod.bankState" />
-      <input placeholder="Bank Province" [(ngModel)]="paymentMethod.bankProvince" />
-      <input placeholder="Bank Country" [(ngModel)]="paymentMethod.bankCountry" />
-      <input placeholder="Bank Zip Code" [(ngModel)]="paymentMethod.bankZip" />
-      <input placeholder="Bank Swift / Routing" [(ngModel)]="paymentMethod.bankSwift" />
-      <input placeholder="Your Address" [(ngModel)]="paymentMethod.address" />
-      <input placeholder="Your City" [(ngModel)]="paymentMethod.city" />
-      <input placeholder="Your State" [(ngModel)]="paymentMethod.state" />
-      <input placeholder="Your Province" [(ngModel)]="paymentMethod.province" />
-      <input placeholder="Your Country" [(ngModel)]="paymentMethod.country" />
-      <input placeholder="Your Zip Code" [(ngModel)]="paymentMethod.zip" />
-
-      <button class="save" (click)="savePaymentMethod()">Save Details</button>
-    </div>
-  </section>
-  }
-
-  <!-- Request popup-->
-  @if (showRequestModal) {
-    <div class="modal-backdrop">
-    <div class="modal">
-      <button class="close" (click)="closeRequestModal()">✕</button>
-      <h4>Payout Request</h4>
-      <p>Available Balance for Payouts: ${{ availableBalance.toFixed(2) }}</p>
-      <input placeholder="Enter Desired Payout Amount" [(ngModel)]="requestedAmount" />
-      <button class="submit" (click)="submitRequest()">Submit</button>
-    </div>
-    </div>
-  }
-  </div>
+      <ng-template pTemplate="footer">
+         <p-button label="Submit Request" styleClass="p-button-danger w-full medium-btn" (onClick)="submitRequest()"></p-button>
+      </ng-template>
+  </p-dialog>
 </div>

@@ -1,6 +1,10 @@
-.ad-units-page {
-  width: 100%;
-  padding: 0;
+$brand-red: #b91c41;
+$brand-red-hover: #a01738;
+$text-dark: #1f2937;
+$text-gray: #6b7280;
+
+:host {
+  display: block;
 }
 
 .page-inner {
@@ -10,270 +14,151 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 
   h1 {
     font-size: 28px;
-    font-weight: 600;
-    color: #0f172a;
+    font-weight: 700;
+    color: $text-dark;
     margin: 0;
-  }
-
-  .btn-create {
-    background-color: #b91c41;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.2s;
-
-    &:hover {
-      background-color: #a01738;
-    }
+    letter-spacing: -0.5px;
   }
 }
 
-.filter-section {
+.controls-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 24px;
-
-  .select-dropdown {
-    padding: 10px 12px;
-    border: 1px solid #d1d5db;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
-    background-color: white;
-    min-width: 200px;
-
-    &:focus {
-      outline: none;
-      border-color: #b91c41;
-      box-shadow: 0 0 0 3px rgba(185, 28, 65, 0.1);
-    }
-  }
 }
 
+// Table
 .table-section {
   background-color: white;
-  border-radius: 8px;
+  border-radius: 12px; 
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  margin-bottom: 24px;
+  border: 1px solid #e5e7eb;
 
-  .ad-units-table {
-    width: 100%;
-    border-collapse: collapse;
-
-    thead {
-      background-color: #f9fafb;
-      border-bottom: 1px solid #e5e7eb;
-
-      th {
-        padding: 16px;
-        text-align: left;
-        font-weight: 600;
-        color: #374151;
-        font-size: 14px;
-      }
-    }
-
-    tbody {
-      tr {
-        border-bottom: 1px solid #e5e7eb;
-        transition: background-color 0.2s;
-
-        &:hover {
-          background-color: #f9fafb;
-        }
-
-        &:last-child {
-          border-bottom: none;
-        }
-
-        td {
-          padding: 16px;
-          font-size: 14px;
-          color: #1f2937;
-        }
-
-        .code-cell {
-          position: relative;
-
-          code {
-            background-color: transparent;
-            padding: 0;
-            border-radius: 0;
-            font-family: 'Monaco', 'Courier New', monospace;
-            font-size: 12px;
-            color: #374151;
-            word-break: break-all;
-            display: inline-block;
-            max-width: 500px;
-            vertical-align: middle;
-          }
-
-          .copy-btn {
-            background: none;
-            border: none;
-            color: #6b7280;
-            cursor: pointer;
-            padding: 4px 8px;
-            margin-left: 8px;
-            transition: color 0.2s;
-            vertical-align: middle;
-
-            &:hover {
-              color: #b91c41;
-            }
-
-            svg {
-              display: block;
-            }
-          }
-        }
-
-        .status {
-          padding: 4px 12px;
-          border-radius: 20px;
-          font-size: 12px;
-          font-weight: 600;
-
-          &.approved {
-            background-color: #dcfce7;
-            color: #166534;
-          }
-
-          &.pending {
-            background-color: #fef3c7;
-            color: #92400e;
-          }
-        }
-      }
+  .code-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    code {
+      background-color: #f3f4f6;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 13px;
+      color: $text-dark;
+      border: 1px solid #e5e7eb;
     }
   }
 }
 
 .note {
-  margin-bottom: 0;
-
+  margin-top: 1.5rem;
   p {
-    margin: 0;
-    font-size: 13px;
-    color: #b91c41;
-    line-height: 1.6;
-
+    font-size: 14px;
+    color: $brand-red;
     a {
-      color: #b91c41;
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
+      font-weight: 600;
+      color: $brand-red;
+      &:hover { text-decoration: underline; }
     }
   }
 }
 
-.modal-backdrop {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 120;
+::ng-deep {
 
-  .modal {
-    background-color: white;
+  .p-button.big-btn {
+    padding: 10px 24px !important; 
+    font-size: 1rem !important;    
+    font-weight: 600 !important;
     border-radius: 8px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-    width: 90%;
-    max-width: 500px;
+  }
+
+  .p-button.p-button-danger {
+    background-color: $brand-red;
+    border-color: $brand-red;
+    &:hover {
+      background-color: $brand-red-hover !important;
+      border-color: $brand-red-hover !important;
+    }
+  }
+  
+  //dropdowns
+  .p-dropdown {
+    border-radius: 8px; 
+    border-color: #d1d5db;
+    
+    .p-dropdown-label {
+      padding: 10px 16px; 
+      font-size: 1rem;
+    }
+
+    &:not(.p-disabled).p-focus {
+      border-color: $brand-red;
+      box-shadow: 0 0 0 2px rgba($brand-red, 0.1);
+    }
+  }
+
+  .modal-dropdown {
+    width: 100%;
+  }
+
+  .p-datatable .p-datatable-thead > tr > th {
+    background-color: #f9fafb;
+    color: $text-dark;
+    font-weight: 600;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+  }
+
+  .p-datatable .p-datatable-tbody > tr > td {
+    padding: 1rem;
+    border-bottom: 1px solid #f3f4f6;
+    color: $text-gray;
+    font-size: 14px;
+  }
+
+  .p-tag {
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    font-size: 11px;
+
+    &.p-tag-success { background: #d1fae5; color: #065f46; }
+    &.p-tag-warning { background: #fef3c7; color: #92400e; }
+  }
+  
+  // dialog
+  .p-dialog {
+    border-radius: 12px;
     overflow: hidden;
-
-    .modal-header {
-      padding: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    
+    .p-dialog-header {
+      background: white;
+      padding: 1.5rem;
       border-bottom: 1px solid #e5e7eb;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      h2 {
-        margin: 0;
-        font-size: 20px;
-        font-weight: 600;
-        color: #0f172a;
-      }
-
-      .close-btn {
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: #9ca3af;
-        cursor: pointer;
-        padding: 0;
-        width: 32px;
-        height: 32px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &:hover {
-          color: #374151;
-        }
-      }
+      .p-dialog-title { font-weight: 700; color: $text-dark; font-size: 1.25rem; }
     }
-
-    .modal-body {
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-
-      .select-dropdown {
-        padding: 10px 12px;
-        border: 1px solid #d1d5db;
-        border-radius: 6px;
-        font-size: 14px;
-        cursor: pointer;
-        background-color: white;
-        width: 100%;
-
-        &:focus {
-          outline: none;
-          border-color: #b91c41;
-          box-shadow: 0 0 0 3px rgba(185, 28, 65, 0.1);
-        }
-      }
+    
+    .p-dialog-content {
+      padding: 2rem 2.5rem !important; 
     }
-
-    .modal-footer {
-      padding: 24px;
+    
+    .p-dialog-footer {
+      padding: 1.5rem;
       border-top: 1px solid #e5e7eb;
+      background: #f9fafb;
       display: flex;
-      justify-content: flex-end;
-
-      .btn-submit {
-        background-color: #b91c41;
-        color: white;
-        border: none;
-        padding: 10px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.2s;
-
-        &:hover {
-          background-color: #a01738;
-        }
-      }
+      justify-content: center;
     }
   }
 }
